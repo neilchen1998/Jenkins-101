@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         VENV_NAME = 'venv'
-        PYTHON_VENV = "./${VENV_NAME}/bin/python"
+        PYTHON_VENV = "./${VENV_NAME}/bin/python3"
         APP_DIR = 'myapp' 
     }
 
