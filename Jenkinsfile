@@ -1,23 +1,18 @@
 pipeline {
+
+    // Specify the agent if needed
     agent any
 
+    // Set up the env. variables
     environment {
-        VENV_NAME = 'venv'
+        VENV_NAME = 'venv'  // python virtual environment
         PYTHON_VENV = "./${VENV_NAME}/bin/python3"
-        APP_DIR = 'myapp'
+        APP_DIR = 'myapp'   // the directory of the app
     }
 
     stages {
 
-        stage('Debug Environment') {
-            steps {
-                echo 'Checking environment for debugging...'
-                sh 'echo PATH: $PATH'
-                sh 'which python3 || echo "python3 not found"'
-                sh 'python3 --version || echo "python3 not available"'
-            }
-        }
-
+        // 1. Install Dependencies
         stage('Install Dependencies') {
             steps {
                 dir("${APP_DIR}") {
@@ -37,6 +32,7 @@ pipeline {
             }
         }
 
+        // 2. Run Python Script
         stage('Run Python Script') {
             steps {
                 dir("${APP_DIR}") {
@@ -46,6 +42,7 @@ pipeline {
             }
         }
 
+        // 3. Cleanup
         stage('Cleanup') {
             steps {
                 dir("${APP_DIR}") {
